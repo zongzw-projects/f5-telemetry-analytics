@@ -3,10 +3,6 @@
 cdir=`cd $(dirname $0); pwd`;
 export HOMEDIR=$cdir/..
 
-if [ $# -eq 1 -a "$1" = "--demo" ]; then
-    demo_yml_option="-f $HOMEDIR/conf.d/.docker-compose-demo.yml"
-fi
-
 function refresh_image_if_necessary() {
     
     md5bin=`which md5`
@@ -38,11 +34,11 @@ rm -rf $HOMEDIR/data/kafka/* # remove legacy kafka data for no persistence.
 
 # ERROR: [1] bootstrap checks failed
 # [1]: max virtual memory areas vm.max_map_count [65530] is too low, increase to at least [262144]
-sysctl -a 2> /dev/null | grep max_map_count > /dev/null
-if [ $? -eq 0 ]; then sysctl -w vm.max_map_count=262144; fi
+
+if [ $? -eq 0 ]; then sysctl -w vm.max_map_count=262144; fi # ?: the state of last cmd quit, 0 is right, 1 is error
 
 # docker-compose -f $HOMEDIR/conf.d/docker-compose.yml $demo_yml_option down # force remove and recreate the network
-docker-compose -f $HOMEDIR/conf.d/docker-compose.yml $demo_yml_option up -d --force-recreate --remove-orphans
+docker-compose -f $HOMEDIR/conf.d/docker-compose.yml up -d --force-recreate --remove-orphans
 
 sleep 1
 for n in "CTRLBOX" "FLUENTD"; do 
@@ -52,12 +48,17 @@ done
 
 docker exec CTRLBOX "/root/workdir/scripts/cmds-in-ctrlbox/setup-efk.sh"
 
-for n in "CTRLBOX" "FLUENTD"; do 
-    echo -n "Setup $n crontab jobs ... "
-    docker exec $n "crond"
-    docker exec $n crontab /etc/crontab
-    echo "done"
-done
+echo -n "Setup CTRLBOX crontab jobs ... "
+docker exec CTRLBOX "crond"
+docker exec CTRLBOX crontab /etc/crontab
+echo "done"
+
+# for n in "CTRLBOX" "FLUENTD"; do 
+#     echo -n "Setup $n crontab jobs ... "
+#     docker exec $n "crond"
+#     docker exec $n crontab /etc/crontab
+#     echo "done"
+# done
 
 # x='
 # 0. start docker containers..

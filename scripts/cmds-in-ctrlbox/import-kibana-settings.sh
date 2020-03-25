@@ -10,6 +10,6 @@ for n in `cd $ddir; ls *.json`; do
         -s -o /dev/null \
         -w "%{http_code}" \
         -H "Content-Type: application/json" -H "kbn-xsrf: true" \
-        -d @"$ddir/$n"
+        -d @"$ddir/$n" # curl -d @"filename" , send local file
     echo
 done

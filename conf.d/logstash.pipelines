@@ -6,5 +6,5 @@
   path.config: "/usr/share/logstash/pipeline/ltm"
   # pipeline.workers: 8 # default is cpu number
 
-- pipeline.id: dns
-  path.config: "/usr/share/logstash/pipeline/dns"
+# - pipeline.id: dns
+#  path.config: "/usr/share/logstash/pipeline/dns"

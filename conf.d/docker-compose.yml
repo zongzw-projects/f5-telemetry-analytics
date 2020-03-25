@@ -1,68 +1,68 @@
 version: "3"
 
 services:
-  # elasticsearch:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-  #   container_name: ELASTICSEARCH
-  #   ports:
-  #     - 9200:9200
-  #   environment:
-  #     - discovery.type=single-node
-  #   volumes:
-  #    - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
-
-  es01:
+  elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-    container_name: ES01
+    container_name: ELASTICSEARCH
     ports:
       - 9200:9200
     environment:
-      - node.name=es01
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es02,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
+      - discovery.type=single-node
     volumes:
-     - ${HOMEDIR}/data/elasticsearch/es01:/usr/share/elasticsearch/data
-    
-  es02:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-    container_name: ES02
-    environment:
-      - node.name=es02
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es03
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-     - ${HOMEDIR}/data/elasticsearch/es02:/usr/share/elasticsearch/data
+     - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
 
-  es03:
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-    container_name: ES03
-    environment:
-      - node.name=es03
-      - cluster.name=es-docker-cluster
-      - discovery.seed_hosts=es01,es02
-      - cluster.initial_master_nodes=es01,es02,es03
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-     - ${HOMEDIR}/data/elasticsearch/es03:/usr/share/elasticsearch/data
+  # es01:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+  #   container_name: ES01
+  #   ports:
+  #     - 9200:9200
+  #   environment:
+  #     - node.name=es01
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es02,es03
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #    - ${HOMEDIR}/data/elasticsearch/es01:/usr/share/elasticsearch/data
+    
+  # es02:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+  #   container_name: ES02
+  #   environment:
+  #     - node.name=es02
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es01,es03
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #    - ${HOMEDIR}/data/elasticsearch/es02:/usr/share/elasticsearch/data
+
+  # es03:
+  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
+  #   container_name: ES03
+  #   environment:
+  #     - node.name=es03
+  #     - cluster.name=es-docker-cluster
+  #     - discovery.seed_hosts=es01,es02
+  #     - cluster.initial_master_nodes=es01,es02,es03
+  #     - bootstrap.memory_lock=true
+  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+  #   ulimits:
+  #     memlock:
+  #       soft: -1
+  #       hard: -1
+  #   volumes:
+  #    - ${HOMEDIR}/data/elasticsearch/es03:/usr/share/elasticsearch/data
 
   fluentd:
     build: ${HOMEDIR}/docker/fluentd
@@ -72,20 +72,20 @@ services:
       # - 24224:24224
       # - 24224:24224/udp
       - 20001:20001/udp   # ltm-fluentd
-      - 20002:20002/udp   # dns-fluentd
+      # - 20002:20002/udp   # dns-fluentd
       # - 20003:20003/udp ...
       # - 8081-8089:8081-8089
       # - 8085:8085
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
       - ${HOMEDIR}/conf.d/fluentd:/etc/td-agent/fluentd
-      - ${HOMEDIR}/scripts/cmds-in-fluentd:/root/cmds-in-fluentd
-      - ${HOMEDIR}/conf.d/fluentd-crontab:/etc/crontab
+      # - ${HOMEDIR}/scripts/cmds-in-fluentd:/root/cmds-in-fluentd
+      # - ${HOMEDIR}/conf.d/fluentd-crontab:/etc/crontab
       - ${HOMEDIR}/data/fluentd:/var/log/td-agent/buffer
     links:
-      - es01:elasticsearch
+      - ELASTICSEARCH:elasticsearch
     depends_on:
-      - es01
+      - ELASTICSEARCH
       - kibana
       - kafka
 
@@ -93,9 +93,9 @@ services:
     image: docker.elastic.co/kibana/kibana:7.4.1
     container_name: KIBANA
     links:
-      - es01:elasticsearch
+      - ELASTICSEARCH:elasticsearch
     depends_on:
-      - es01
+      - ELASTICSEARCH
     ports:
       - 5601:5601
     volumes:
@@ -114,16 +114,16 @@ services:
       - 8000:80
       - 7890:7890
     links:
-      - es01:elasticsearch
+      - ELASTICSEARCH:elasticsearch
     depends_on:
       - nginx
       - kibana
-      - es01
+      - ELASTICSEARCH
       - fluentd
       - kafka
       - logstash
-    env_file:
-      - ${HOMEDIR}/conf.d/.setup.rc
+    # env_file:
+    #   - ${HOMEDIR}/conf.d/.setup.rc
     volumes:
       - ${HOMEDIR}:/root/workdir
       - ${HOMEDIR}/conf.d/ctrlbox-crontab:/etc/crontab
@@ -206,20 +206,19 @@ services:
       # KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
 
   logstash:
-    build: ${HOMEDIR}/docker/logstash
-    image: f5networks/logstash:latest
+    image: logstash:7.5.1
     container_name: LOGSTASH
     links:
-      - es01:elasticsearch
+      - ELASTICSEARCH:elasticsearch
     depends_on:
-      - es01
+      - ELASTICSEARCH
     ports:
       # - 4560:4560 # for logstash debug test.
       # - 5000:5000
       - 9600:9600
     volumes:
       - ${HOMEDIR}/conf.d/logstash/ltm-fluentd.conf:/usr/share/logstash/pipeline/ltm/logstash.conf
-      - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
+      # - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
     entrypoint:
       - /usr/local/bin/docker-entrypoint
