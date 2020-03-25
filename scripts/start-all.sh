@@ -8,7 +8,7 @@ function refresh_image_if_necessary() {
     md5bin=`which md5`
     if [ x"$md5bin" = x ]; then md5bin=`which md5sum`; fi; 
 
-    for n in fluentd ctrlbox logstash; do 
+    for n in fluentd ctrlbox; do 
         echo "Generating image: $n ..."
 
         dockerfile_path=$HOMEDIR/docker/$n/Dockerfile
