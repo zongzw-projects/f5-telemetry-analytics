@@ -1,6 +1,7 @@
 30 * * * * /root/workdir/scripts/cmds-in-ctrlbox/create-index-mapping.sh 24
 */2 * * * * python /root/workdir/scripts/cmds-in-ctrlbox/es-mgmt/delete-oldest-indices.py
-* * * * * python /root/workdir/scripts/cmds-in-ctrlbox/es-mgmt/index-stats-data.py
+
+# * * * * * python /root/workdir/scripts/cmds-in-ctrlbox/es-mgmt/index-stats-data.py
 
 # */2 * * * * python /root/workdir/scripts/cmds-in-ctrlbox/es-mgmt/delete-oldest-indices.py errlogs-
 # */2 * * * * python /root/workdir/scripts/cmds-in-ctrlbox/es-mgmt/delete-oldest-indices.py ltm-fluentd-

@@ -35,11 +35,12 @@ function get_n_hour_further_datestr() {
       echo -n "Creating index: $index_name ... "
       curl -s -w "%{http_code}" \
         -H "Content-Type: application/json" \
+        # number_of_shards: 分片给不同 es 节点，等于 es 节点数
         -X PUT $host_endpoint/$index_name -d '
           {
             "settings": {
               "index": {
-                "number_of_shards": 3,
+                "number_of_shards": 3, 
                 "number_of_replicas": 0
               }
             }
