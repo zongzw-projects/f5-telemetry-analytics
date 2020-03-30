@@ -2,6 +2,7 @@
 
 cdir=`cd $(dirname $0); pwd`;
 export HOMEDIR=$cdir/..
+export es-index="ltm-fluentd"
 
 function refresh_image_if_necessary() {
     
