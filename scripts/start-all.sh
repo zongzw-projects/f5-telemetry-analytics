@@ -2,7 +2,9 @@
 
 cdir=`cd $(dirname $0); pwd`;
 export HOMEDIR=$cdir/..
-export ES_INDEX="ltm-fluentd"
+export ES_INDEX=ltm-fluentd
+export FLUENTD_PORT=20001
+export FLUENTD_PROTOCAL=tcp
 
 function refresh_image_if_necessary() {
     

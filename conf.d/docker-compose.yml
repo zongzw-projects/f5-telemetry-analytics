@@ -71,7 +71,7 @@ services:
     ports:
       # - 24224:24224
       # - 24224:24224/udp
-      - 20001:20001/udp   # ltm-fluentd
+      - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}   # ltm-fluentd
       # - 20002:20002/udp   # dns-fluentd
       # - 20003:20003/udp ...
       # - 8081-8089:8081-8089
