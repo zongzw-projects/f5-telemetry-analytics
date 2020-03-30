@@ -82,6 +82,8 @@ services:
       # - ${HOMEDIR}/scripts/cmds-in-fluentd:/root/cmds-in-fluentd
       # - ${HOMEDIR}/conf.d/fluentd-crontab:/etc/crontab
       - ${HOMEDIR}/data/fluentd:/var/log/td-agent/buffer
+    environment:
+      - FLUENTD_PROTOCAL
     links:
       - elasticsearch
     depends_on:
