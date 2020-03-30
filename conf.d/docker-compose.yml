@@ -221,7 +221,7 @@ services:
       # - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
     environment:
-      - es-index: 
+      - ES_INDEX
     entrypoint:
       - /usr/local/bin/docker-entrypoint
       - -r    # Make logstash reload automatically when conf. changes.
