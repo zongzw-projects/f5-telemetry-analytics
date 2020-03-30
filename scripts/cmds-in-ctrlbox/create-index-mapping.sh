@@ -25,6 +25,7 @@ function get_n_hour_further_datestr() {
   echo `date -d "$curdate $curhour $h hour" +%Y.%m.%d`
 }
 
+# number_of_shards: 分片给不同 es 节点，等于 es 节点数
 (
   cd $index_home
   timestr=`get_n_hour_further_datestr $future_n`
@@ -35,8 +36,7 @@ function get_n_hour_further_datestr() {
       echo -n "Creating index: $index_name ... "
       curl -s -w "%{http_code}" \
         -H "Content-Type: application/json" \
-        # number_of_shards: 分片给不同 es 节点，等于 es 节点数
-        -X PUT $host_endpoint/$index_name -d '
+        -X PUT $host_endpoint/$index_name -d ' 
           {
             "settings": {
               "index": {
