@@ -1,0 +1,25 @@
+{
+  "index_patterns": ["ltm-fluentd-*"],
+  "settings": {
+    "index": {
+      "number_of_shards": 3,
+      "number_of_replicas": 0
+    }
+  },
+  "mappings": {
+    "properties": {
+      "timestamp": {
+        "type": "date"
+      },
+      "client-ip": {
+        "type": "ip"
+      },
+      "server-ip": {
+        "type": "ip"
+      },
+      "latency": {
+        "type": "integer"
+      }
+    }
+  }
+}

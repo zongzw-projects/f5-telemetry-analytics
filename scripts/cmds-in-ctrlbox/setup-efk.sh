@@ -62,7 +62,7 @@ done
 # done
 
 $cdir/import-kibana-settings.sh
-$cdir/create-index-mapping.sh
+$cdir/create-index-template.sh
 
 
 # # It's not a good idea to uncomment the following lines.
