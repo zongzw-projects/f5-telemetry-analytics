@@ -5,7 +5,7 @@ workdir=$cdir/../..
 
 host_endpoint="http://elasticsearch:9200"
 
-index_template_home=$workdir/conf.d/elasticsearch/index-tmeplate
+index_template_home=$workdir/conf.d/elasticsearch/index-template
 
 echo -n "Setting read_only_allow_delete to false ... "
 curl -X PUT -s -w "%{http_code}" -H "Content-Type: application/json" $host_endpoint/_settings \
@@ -27,4 +27,3 @@ echo
     fi
   done
 )
-
