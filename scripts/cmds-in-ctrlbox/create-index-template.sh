@@ -14,8 +14,7 @@ echo
 
 # number_of_shards: 分片给不同 es 节点，等于 es 节点数
 (
-  cd $index_home
-  timestr=`get_n_hour_further_datestr $future_n`
+  cd $index_template_home
   for n in `ls`; do 
     response=`curl -s -o /dev/null $host_endpoint/_template/$n -w "%{http_code}"`
     if [ "$response" != "200" ]; then
