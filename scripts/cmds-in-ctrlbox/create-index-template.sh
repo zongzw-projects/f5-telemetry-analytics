@@ -22,8 +22,9 @@ echo
       echo -n "Creating index-template: $n ... "
       curl -X PUT -s -w "%{http_code}" \
         -H "Content-Type: application/json" \
-        $host_endpoint/$index_name/_mapping -d@$n
+        $host_endpoint/_template/$n -d@$n
       echo
+    fi
   done
 )
 
