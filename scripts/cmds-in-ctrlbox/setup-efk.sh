@@ -63,7 +63,7 @@ done
 
 $cdir/import-kibana-settings.sh
 $cdir/create-index-lifecycle.sh
-$cdir/create-index-template.sh
+# $cdir/create-index-template.sh
 
 
 # # It's not a good idea to uncomment the following lines.
