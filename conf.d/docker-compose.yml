@@ -224,7 +224,7 @@ services:
       - ${HOMEDIR}/conf.d/logstash/ltm-fluentd.tmpl:/usr/share/logstash/ltm-fluentd.tmpl
       - ${HOMEDIR}/conf.d/logstash/index-lifecycle/ltm-fluentd:/usr/logstash/index-lifecycle/ltm-fluentd
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
-      - ${HOMEDIR}/scripts/cmds-in-logstash/create-index-lifecycle.sh:/root/create-index-lifecycle.sh
+      - ${HOMEDIR}/scripts/cmds-in-logstash:/usr/share/logstash/cmds-in-logstash
     environment:
       - ES_INDEX
     entrypoint:
