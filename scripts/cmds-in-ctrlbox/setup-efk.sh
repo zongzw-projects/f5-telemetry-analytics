@@ -62,7 +62,7 @@ done
 # done
 
 $cdir/import-kibana-settings.sh
-$cdir/create-index-lifecycle.sh
+# $cdir/create-index-lifecycle.sh
 # $cdir/create-index-template.sh
 
 
