@@ -222,13 +222,14 @@ services:
       - ${HOMEDIR}/conf.d/logstash/ltm-fluentd.conf:/usr/share/logstash/pipeline/ltm/logstash.conf
       # - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
       - ${HOMEDIR}/conf.d/logstash/ltm-fluentd.tmpl:/usr/share/logstash/ltm-fluentd.tmpl
-      - ${HOMEDIR}/conf.d/logstash/index-lifecycle/ltm-fluentd:/usr/logstash/index-lifecycle/ltm-fluentd
+      - ${HOMEDIR}/conf.d/logstash/index-lifecycle/ltm-fluentd:/usr/share/logstash/index-lifecycle/ltm-fluentd
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
       - ${HOMEDIR}/scripts/cmds-in-logstash:/usr/share/logstash/cmds-in-logstash
     environment:
       - ES_INDEX
     entrypoint:
-      - "bash /root/create-index-lifecycle.sh"
+      - bash
+      - /usr/share/logstash/cmds-in-logstash/create-index-lifecycle.sh
       # - /usr/local/bin/docker-entrypoint
       # - -r    # Make logstash reload automatically when conf. changes.
     

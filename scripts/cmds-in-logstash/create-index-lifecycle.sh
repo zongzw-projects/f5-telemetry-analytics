@@ -4,6 +4,7 @@ host_endpoint="http://elasticsearch:9200"
 
 index_lifecyle_home=/usr/share/logstash/index-lifecycle
 
+timeout=150
 
 echo -n "Waiting for es to be ready ..."
 wait=0
@@ -42,5 +43,7 @@ echo
     fi
   done
 )
+
+echo -n "begin docker-entrypoint"
 
 /usr/local/bin/docker-entrypoint -r
