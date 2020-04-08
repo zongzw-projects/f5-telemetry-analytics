@@ -221,7 +221,7 @@ services:
     volumes:
       - ${HOMEDIR}/conf.d/logstash/general.conf:/usr/share/logstash/pipeline/ltm/logstash.conf
       # - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
-      - ${HOMEDIR}/conf.d/logstash/general-template.tmpl:/usr/share/logstash/general-template.tmpl
+      - ${HOMEDIR}/conf.d/logstash/index-template/general-template.tmpl:/usr/share/logstash/general-template.tmpl
       - ${HOMEDIR}/conf.d/logstash/index-lifecycle/general-ilm:/usr/share/logstash/index-lifecycle/general-ilm
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
       - ${HOMEDIR}/scripts/cmds-in-logstash:/usr/share/logstash/cmds-in-logstash
