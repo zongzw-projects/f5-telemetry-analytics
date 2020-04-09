@@ -16,6 +16,7 @@ services:
     image: f5networks/fluentd:latest
     container_name: FLUENTD
     ports:
+      - 20000:20000/tcp
       - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
