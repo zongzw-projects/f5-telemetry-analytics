@@ -11,76 +11,15 @@ services:
     volumes:
      - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
 
-  # es01:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-  #   container_name: ES01
-  #   ports:
-  #     - 9200:9200
-  #   environment:
-  #     - node.name=es01
-  #     - cluster.name=es-docker-cluster
-  #     - discovery.seed_hosts=es02,es03
-  #     - cluster.initial_master_nodes=es01,es02,es03
-  #     - bootstrap.memory_lock=true
-  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #   volumes:
-  #    - ${HOMEDIR}/data/elasticsearch/es01:/usr/share/elasticsearch/data
-    
-  # es02:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-  #   container_name: ES02
-  #   environment:
-  #     - node.name=es02
-  #     - cluster.name=es-docker-cluster
-  #     - discovery.seed_hosts=es01,es03
-  #     - cluster.initial_master_nodes=es01,es02,es03
-  #     - bootstrap.memory_lock=true
-  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #   volumes:
-  #    - ${HOMEDIR}/data/elasticsearch/es02:/usr/share/elasticsearch/data
-
-  # es03:
-  #   image: docker.elastic.co/elasticsearch/elasticsearch:7.4.1
-  #   container_name: ES03
-  #   environment:
-  #     - node.name=es03
-  #     - cluster.name=es-docker-cluster
-  #     - discovery.seed_hosts=es01,es02
-  #     - cluster.initial_master_nodes=es01,es02,es03
-  #     - bootstrap.memory_lock=true
-  #     - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
-  #   ulimits:
-  #     memlock:
-  #       soft: -1
-  #       hard: -1
-  #   volumes:
-  #    - ${HOMEDIR}/data/elasticsearch/es03:/usr/share/elasticsearch/data
-
   fluentd:
     build: ${HOMEDIR}/docker/fluentd
     image: f5networks/fluentd:latest
     container_name: FLUENTD
     ports:
-      # - 24224:24224
-      # - 24224:24224/udp
-      - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}   # ltm-fluentd
-      # - 20002:20002/udp   # dns-fluentd
-      # - 20003:20003/udp ...
-      # - 8081-8089:8081-8089
-      # - 8085:8085
+      - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
       - ${HOMEDIR}/conf.d/fluentd:/etc/td-agent/fluentd
-      # - ${HOMEDIR}/scripts/cmds-in-fluentd:/root/cmds-in-fluentd
-      # - ${HOMEDIR}/conf.d/fluentd-crontab:/etc/crontab
       - ${HOMEDIR}/data/fluentd:/var/log/td-agent/buffer
     environment:
       - FLUENTD_PROTOCAL
@@ -103,10 +42,6 @@ services:
     volumes:
       - ${HOMEDIR}/conf.d/kibana.yml:/usr/share/kibana/config/kibana.yml
       - ${HOMEDIR}/data/kibana:/usr/share/kibana/data
-    # entrypoint:
-    #   - /usr/local/bin/dumb-init
-    #   - --
-    #   - /usr/local/bin/kibana-docker
 
   ctrlbox:
     build: ${HOMEDIR}/docker/ctrlbox
@@ -124,50 +59,15 @@ services:
       - fluentd
       - kafka
       - logstash
-    # env_file:
-    #   - ${HOMEDIR}/conf.d/.setup.rc
     volumes:
       - ${HOMEDIR}:/root/workdir
       - ${HOMEDIR}/conf.d/ctrlbox-crontab:/etc/crontab
-      # - ${HOMEDIR}/scripts:/root/scripts
-      # - ${HOMEDIR}/conf.d/setup.rc:/root/setup.rc # temp
-      # - ${HOMEDIR}/conf.d/kibana-exports:/root/kibana-exports
-    # entrypoint:
-    #   - /bin/sh
-    #   - -c
-    #   - while true; do sleep 1; done
-
-  # zookeeper:
-  #   image: wurstmeister/zookeeper:latest
-  #   expose:
-  #   - "2181"
-
-  # kafka:
-  #   image: wurstmeister/kafka:2.12-2.4.0
-  #   depends_on:
-  #   - zookeeper
-  #   ports:
-  #   - "9092:9092"
-  #   environment:
-  #     # KAFKA_BROKER_ID: 1
-  #     # BROKER_ID_COMMAND: "printf '%d' $((0x$HOSTNAME % 10000))"
-  #     HOSTNAME_COMMAND: "hostname"
-  #     KAFKA_ADVERTISED_HOST_NAME: _{HOSTNAME_COMMAND}
-  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-  #     KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-  #     # KAFKA_CREATE_TOPICS: "messages:1:1,test:1:1:compact"
-  #     # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-  #     # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-  #     # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
 
   zookeeper:
     image: bitnami/zookeeper:3
     container_name: ZOOKEEPER
     ports:
       - 2181:2181
-    # volumes:
-    #   - ${HOMEDIR}/data/zookeeper:/bitnami
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
     
@@ -195,18 +95,6 @@ services:
     depends_on:
       - zookeeper
 
-      # KAFKA_ADVERTISED_HOST_NAME: kafka
-      # KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
-      # KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
-      # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      # KAFKA_CREATE_TOPICS: "messages:1:1,test:1:1:compact"
-
-      # KAFKA_ADVERTISED_LISTENERS: INSIDE://kafka:9093,OUTSIDE://localhost:9092
-      # KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
-      # KAFKA_LISTENERS: INSIDE://0.0.0.0:9093,OUTSIDE://0.0.0.0:9092
-      # KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      # KAFKA_INTER_BROKER_LISTENER_NAME: INSIDE
-
   logstash:
     image: logstash:7.5.1
     container_name: LOGSTASH
@@ -215,12 +103,9 @@ services:
     depends_on:
       - elasticsearch
     ports:
-      # - 4560:4560 # for logstash debug test.
-      # - 5000:5000
       - 9600:9600
     volumes:
       - ${HOMEDIR}/conf.d/logstash/general.conf:/usr/share/logstash/pipeline/ltm/logstash.conf
-      # - ${HOMEDIR}/conf.d/logstash/dns-fluentd.conf:/usr/share/logstash/pipeline/dns/logstash.conf
       - ${HOMEDIR}/conf.d/logstash/index-template/general-template.tmpl:/usr/share/logstash/general-template.tmpl
       - ${HOMEDIR}/conf.d/logstash/index-lifecycle/general-ilm:/usr/share/logstash/index-lifecycle/general-ilm
       - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
@@ -230,8 +115,6 @@ services:
     entrypoint:
       - bash
       - /usr/share/logstash/cmds-in-logstash/create-index-lifecycle.sh
-      # - /usr/local/bin/docker-entrypoint
-      # - -r    # Make logstash reload automatically when conf. changes.
     
     
   nginx:
