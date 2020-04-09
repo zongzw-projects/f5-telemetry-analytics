@@ -62,7 +62,6 @@ services:
       - logstash
     volumes:
       - ${HOMEDIR}:/root/workdir
-      - ${HOMEDIR}/conf.d/ctrlbox-crontab:/etc/crontab
 
   zookeeper:
     image: bitnami/zookeeper:3
