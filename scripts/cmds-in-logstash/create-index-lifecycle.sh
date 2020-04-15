@@ -43,7 +43,3 @@ echo
     fi
   done
 )
-
-echo -n "begin docker-entrypoint"
-
-/usr/local/bin/docker-entrypoint -r

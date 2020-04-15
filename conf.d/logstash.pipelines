@@ -2,8 +2,8 @@
 # For more information on multiple pipelines, see the documentation:
 #   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
 
-- pipeline.id: ltm
-  path.config: "/usr/share/logstash/pipeline/ltm"
+- pipeline.id: general
+  path.config: "/usr/share/logstash/pipeline/general"
   # pipeline.workers: 8 # default is cpu number
 
 # - pipeline.id: dns
