@@ -16,7 +16,7 @@ services:
     image: f5networks/fluentd:latest
     container_name: FLUENTD
     ports:
-      - 20000:20000/tcp
+      - "20000-20010:20000-20010/tcp"
       - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
@@ -105,10 +105,10 @@ services:
     ports:
       - 9600:9600
     volumes:
-      - ${HOMEDIR}/conf.d/logstash/general.conf:/usr/share/logstash/pipeline/general/logstash.conf
-      - ${HOMEDIR}/conf.d/logstash/index-template/general-template.tmpl:/usr/share/logstash/general-template.tmpl
-      - ${HOMEDIR}/conf.d/logstash/index-lifecycle/general-ilm:/usr/share/logstash/index-lifecycle/general-ilm
-      - ${HOMEDIR}/conf.d/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
+      - ${HOMEDIR}/conf.d/logstash/index-templates:/usr/share/logstash/index-templates
+      - ${HOMEDIR}/conf.d/logstash/index-lifecycle:/usr/share/logstash/index-lifecycle
+      - ${HOMEDIR}/conf.d/logstash/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
+      - ${HOMEDIR}/conf.d/logstash/pipelines:/usr/share/logstash/config/pipelines
       - ${HOMEDIR}/scripts/cmds-in-logstash:/usr/share/logstash/cmds-in-logstash
     environment:
       - ES_INDEX
