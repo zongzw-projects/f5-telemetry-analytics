@@ -3,8 +3,11 @@
 #   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
 
 - pipeline.id: general
-  path.config: "/usr/share/logstash/pipeline/general"
+  path.config: "/usr/share/logstash/config/pipelines/general"
   # pipeline.workers: 8 # default is cpu number
 
-# - pipeline.id: dns
-#  path.config: "/usr/share/logstash/pipeline/dns"
+- pipeline.id: json
+  path.config: "/usr/share/logstash/config/pipelines/json"
+
+- pipeline.id: regex
+  path.config: "/usr/share/logstash/config/pipelines/regex"
