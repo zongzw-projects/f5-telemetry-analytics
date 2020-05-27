@@ -21,7 +21,8 @@ services:
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
       - ${HOMEDIR}/conf.d/fluentd:/etc/td-agent/fluentd
-      - ${HOMEDIR}/data/fluentd:/var/log/td-agent/buffer
+      - ${HOMEDIR}/logs/fluentd/td-agent:/var/log/td-agent
+      - ${HOMEDIR}/data/fluentd:/var/log/buffer
     environment:
       - FLUENTD_PROTOCAL
     links:
