@@ -1,0 +1,33 @@
+{
+  "index_patterns": [
+    "general-*"
+  ],
+  "settings": {
+    "mapping": {
+      "total_fields": {
+        "limit": "10000"
+      }
+    },
+    "number_of_shards": 1,
+    "number_of_replicas": 0
+  },
+  "mappings": {
+    "properties": {
+      "timestamp": {
+        "type": "date"
+      },
+      "client-ip": {
+        "type": "ip"
+      },
+      "server-ip": {
+        "type": "ip"
+      },
+      "geo": {
+        "type": "geo_point"
+      },
+      "latency": {
+        "type": "integer"
+      }
+    }
+  }
+}
