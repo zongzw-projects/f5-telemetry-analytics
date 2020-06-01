@@ -9,7 +9,9 @@ services:
     environment:
       - discovery.type=single-node
     volumes:
-     - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
+      - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
+    networks:
+      - ta-net
 
   fluentd:
     build: ${HOMEDIR}/docker/fluentd
@@ -31,6 +33,8 @@ services:
       - elasticsearch
       - kibana
       - kafka
+    networks:
+      - ta-net
 
   kibana:
     image: docker.elastic.co/kibana/kibana:7.4.1
@@ -44,6 +48,8 @@ services:
     volumes:
       - ${HOMEDIR}/conf.d/kibana.yml:/usr/share/kibana/config/kibana.yml
       - ${HOMEDIR}/data/kibana:/usr/share/kibana/data
+    networks:
+      - ta-net
 
   ctrlbox:
     build: ${HOMEDIR}/docker/ctrlbox
@@ -63,6 +69,8 @@ services:
       - logstash
     volumes:
       - ${HOMEDIR}:/root/workdir
+    networks:
+      - ta-net
 
   zookeeper:
     image: bitnami/zookeeper:3
@@ -71,6 +79,8 @@ services:
       - 2181:2181
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
+    networks:
+      - ta-net
     
   kafka:
     image: bitnami/kafka:2
@@ -95,6 +105,8 @@ services:
       - KAFKA_CFG_LOG_RETENTION_BYTES=1073741824  #1GB
     depends_on:
       - zookeeper
+    networks:
+      - ta-net
 
   logstash:
     image: logstash:7.5.1
@@ -117,6 +129,8 @@ services:
       - bash
       - -c
       - "/usr/share/logstash/cmds-in-logstash/create-index-lifecycle.sh && /usr/local/bin/docker-entrypoint -r"
+    networks:
+      - ta-net
     
     
   nginx:
@@ -131,3 +145,12 @@ services:
       - ${HOMEDIR}/logs/nginx:/var/log/nginx
     depends_on:
       - fluentd
+    networks:
+      - ta-net
+
+networks:
+  ta-net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.248.0/24
