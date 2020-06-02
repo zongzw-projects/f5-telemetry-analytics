@@ -2,9 +2,6 @@
 
 cdir=`cd $(dirname $0); pwd`;
 export HOMEDIR=$cdir/..
-export ES_INDEX=general
-export FLUENTD_PORT=20001
-export FLUENTD_PROTOCAL=udp
 
 function refresh_image_if_necessary() {
     
