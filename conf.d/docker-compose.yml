@@ -19,14 +19,11 @@ services:
     container_name: FLUENTD
     ports:
       - "20000-20010:20000-20010/tcp"
-      - ${FLUENTD_PORT}:20001/${FLUENTD_PROTOCAL}
     volumes:
       - ${HOMEDIR}/conf.d/fluentd.conf:/etc/td-agent/td-agent.conf
       - ${HOMEDIR}/conf.d/fluentd:/etc/td-agent/fluentd
       - ${HOMEDIR}/logs/fluentd/td-agent:/var/log/td-agent
       - ${HOMEDIR}/data/fluentd:/var/log/buffer
-    environment:
-      - FLUENTD_PROTOCAL
     links:
       - elasticsearch
     depends_on:
@@ -123,8 +120,6 @@ services:
       - ${HOMEDIR}/conf.d/logstash/logstash.pipelines:/usr/share/logstash/config/pipelines.yml
       - ${HOMEDIR}/conf.d/logstash/pipelines:/usr/share/logstash/config/pipelines
       - ${HOMEDIR}/scripts/cmds-in-logstash:/usr/share/logstash/cmds-in-logstash
-    environment:
-      - ES_INDEX
     entrypoint:
       - bash
       - -c
