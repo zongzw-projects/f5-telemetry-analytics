@@ -33,6 +33,7 @@ function refresh_image_if_necessary() {
 refresh_image_if_necessary
 
 chmod -R 777 $HOMEDIR/data/* # permission denied in linux.
+chmod 777 $HOMEDIR/logs/fluentd/*
 rm -rf $HOMEDIR/data/kafka/* # remove legacy kafka data for no persistence.
 
 # ERROR: [1] bootstrap checks failed
