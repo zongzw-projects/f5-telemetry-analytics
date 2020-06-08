@@ -31,6 +31,7 @@ services:
       - elasticsearch
       - kibana
       - kafka
+      - logstash
     networks:
       - ta-net
 
