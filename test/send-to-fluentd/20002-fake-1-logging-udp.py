@@ -1,7 +1,7 @@
 import testlib
 import time
 
-testlib.send_logs.udp_connect('fluentd', 20001)
+testlib.send_logs.udp_connect('localhost', 20002)
 
 # ts = testlib.timeutils.str2ts('2020-01-02T10:40:00.000Z')
 ts = int(time.time())
@@ -10,7 +10,7 @@ ts = int(time.time())
 # t1 = testlib.timeutils.str2ts(s1)
 # s2 = testlib.timeutils.ts2str(t1)
 
-log = testlib.mock_data.mock_logging_data_20001(ts, 1)
+log = testlib.mock_data.mock_logging_data_20002(ts, 1)
 testlib.send_logs.send_udp(log)
 print(log)
 testlib.send_logs.udp_socket.close()
