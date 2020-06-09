@@ -12,21 +12,13 @@
     "number_of_replicas": 0
   },
   "mappings": {
+    "date_detection": false,
     "properties": {
-      "timestamp": {
+      "@timestamp": {
         "type": "date"
       },
-      "client-ip": {
-        "type": "ip"
-      },
-      "server-ip": {
-        "type": "ip"
-      },
-      "geo": {
-        "type": "geo_point"
-      },
-      "latency": {
-        "type": "integer"
+      "timestamp": {
+        "type": "date"
       }
     }
   }
