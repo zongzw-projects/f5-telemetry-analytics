@@ -1,0 +1,18 @@
+<source>
+  @type tcp
+  tag tcp_input
+  port 20000
+
+  # notice that @log_level needs to be error, 
+  # so that unmatched items will not generate warning logs in td-agent.log
+  @log_level debug
+
+  <parse>
+    @type csv
+    delimiter ",,,"
+    parser_type fast
+    keys blocking_exception_reason,attack_type,captcha_result,client_type,date_time,dest_ip,dest_port,device_id,geo_location,http_class_name,ip_addrewss_intelligence,ip_client,ip_with_route_domain,is_truncated,login_result,management_ip_address,method,mobile_application_name,mobile_application_version,policy_apply_date,policy_name,protocol,query_string,request,request_status,response,response_code,route_domain,session_id,severity,sig_ids,sig_names,sig_set_names,src_port,staged_sig_ids,staged_sig_names,staged_sig_set_names,sub_violations,suppoet_id,unit_hostname,uri,username,violation_rating,violations,virus_name,websocket_direction,websocket_message_type,x_forwarded_for_header_value
+  </parse>
+
+  @label @KAFKA
+</source>
