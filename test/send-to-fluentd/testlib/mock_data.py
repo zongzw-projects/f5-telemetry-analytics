@@ -149,6 +149,7 @@ def mock_logging_data_20002(ts, concurrency):
         'queryid': "%x" % random.randint(0, 100000),
         'origin': random.choice(QNAMES),
         'status': random.choice(['OK', 'FAILED']),
+        "user-agent": user_agent,
         
         "stdout": "OK"
     }
@@ -225,7 +226,7 @@ def mock_logging_data_20003(ts, concurrency):
         "method": "GET",
         "violations": "Attack signature detected",
         "http_class_name": "/Common/DVWA-test",
-        "violation_rating": random.choice(['1', '2', '3', '3', '4', '4', '4']),
+        "violation_rating": random.choice(['0', '0', '0', '0', '0', '0', '0', '1', '2', '3', '3', '4', '4', '4']),
         "uri": random.choice(["/DVWA/vulnerabilities/xss_r/", ]),
         "severity": random.choice(['Error', 'Warn', 'Debug']),
         "client_type": "Uncategorized",

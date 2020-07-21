@@ -32,7 +32,6 @@ def logging_at(ts, count):
         d = eval(cmd)
         print(json.dumps(d))
 
-
         resp = requests.post('http://fluentd:20003/http_input', data = json.dumps(d))
         print(resp.status_code)
 
