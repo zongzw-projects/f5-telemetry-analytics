@@ -10,7 +10,9 @@ import time
 import testlib
 
 if len(sys.argv) != 4:
-    print("%s <maxps> <start-timestr> <end-timestr>\n" % sys.argv[0])
+    print("\n  %s <maxps> <start-timestr> <end-timestr>\n" % sys.argv[0])
+    print("\n    Example: python %s 2 \"2020-09-15T08:43:00.000Z\" \"2020-09-15T08:44:00.000Z\"\n" % sys.argv[0])
+    print("\n    Note: Only 'Z' is allowed, you need to convert your time to Z timezone.\n")
     sys.exit(1)
 
 port = 20001

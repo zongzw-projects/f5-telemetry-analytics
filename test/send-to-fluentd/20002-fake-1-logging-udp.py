@@ -1,7 +1,7 @@
 import testlib
 import time
 
-testlib.send_logs.udp_connect('localhost', 20002)
+testlib.send_logs.udp_connect('fluentd', 20002)
 
 # ts = testlib.timeutils.str2ts('2020-01-02T10:40:00.000Z')
 ts = int(time.time())
