@@ -22,7 +22,7 @@ It is powered by docker based BigData Engine Tools: EFK. The scaling-out is an a
 
   We recommend to use Docker CE instead of the OS-built docker version, like: `docker x86_64 2:1.13.1-162.git64e9980.el7.centos`. 
 
-  Use [./scripts/install-dockerce-centos.sh](./scripts/install-dockerce-centos.sh) for DockerCE installation on CentOS. 
+  Use [./scripts/helpers/install-dockerce-centos.sh](./scripts/helpers/install-dockerce-centos.sh) for DockerCE installation on CentOS. 
 
   ***Important**\*: It will remove OS prebuilt docker version and install DockerCE.
 
