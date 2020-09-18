@@ -2,13 +2,19 @@
 
 cdir=`cd $(dirname $0); pwd`;
 export HOMEDIR=$cdir/..
+docker_path=$HOMEDIR/docker
 
 function refresh_image_if_necessary() {
     
-    md5bin=`which md5`
-    if [ x"$md5bin" = x ]; then md5bin=`which md5sum`; fi; 
-
-    for n in fluentd ctrlbox; do 
+    which md5 > /dev/null 2>&1
+    md5bin=""
+    if [ $? -ne 0 ]; then
+        md5bin=`which md5`
+    else
+        md5bin=`which md5sum`
+    fi
+    
+    for n in `cd $docker_path; ls`; do 
         echo "Generating image: $n ..."
 
         dockerfile_path=$HOMEDIR/docker/$n/Dockerfile
