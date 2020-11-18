@@ -9,6 +9,8 @@ services:
     environment:
       - discovery.type=single-node
     volumes:
+      - ${HOMEDIR}/conf.d/elasticsearch/jvm.options:/usr/share/elasticsearch/config/jvm.options
+      - ${HOMEDIR}/conf.d/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
       - ${HOMEDIR}/data/elasticsearch:/usr/share/elasticsearch/data
     networks:
       - ta-net

@@ -10,7 +10,9 @@ import time
 import testlib
 
 if len(sys.argv) != 4:
-    print("%s <maxps> <start-timestr> <end-timestr>\n" % sys.argv[0])
+    print("\n  %s <maxps> <start-timestr> <end-timestr>\n" % sys.argv[0])
+    print("\n    Example: python %s 2 \"2020-09-15T08:43:00.000Z\" \"2020-09-15T08:44:00.000Z\"\n" % sys.argv[0])
+    print("\n    Note: Only 'Z' is allowed, you need to convert your time to Z timezone.\n")
     sys.exit(1)
 
 port = 20001
@@ -19,14 +21,14 @@ start = sys.argv[2]
 end = sys.argv[3]
 
 def connect():
-    testlib.send_logs.udp_connect('fluentd', port)
+    testlib.send_logs.tcp_connect('fluentd', port)
 
 def logging_at(ts, count):
 
     for n in range(0, count):
         cmd = "testlib.mock_data.mock_logging_data_%s(%d, %d)" % (port, ts, count)
         d = eval(cmd)
-        testlib.send_logs.send_udp(d)
+        testlib.send_logs.send_tcp(d)
 
         # time.sleep(0.01)
 
@@ -39,5 +41,5 @@ for n in range(nstart, nend):
         print("finished: %d, %d" % (int((n - nstart)* 100 / (nend - nstart)), count))
     logging_at(n,count)
 
-testlib.send_logs.udp_socket.close()
+testlib.send_logs.tcp_socket.close()
 

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="BDE TEST" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="线程组" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="循环控制器" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">50</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+        <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HTTP Request" enabled="true">
+          <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+          <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+            <collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument">
+                <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                <stringProp name="Argument.value">[2013-02-28 12:00:00 +0900] alice engineer tom cooker john police jerry doctor jony teacher kally nurse alice engineer tom cooker john police jerry doctor jony teacher kally nurse alice engineer tom cooker john police jerry doctor jony teacher kally nurse alice engineer tom cooker john police jerry doctor jony teacher kally nurses jensony teachers ${__Random( 0,1000000 )}&#xd;
+&#xd;
+/*&#xd;
+&#xd;
+^\[(?&lt;logtime&gt;[^\]]*)\] (?&lt;name&gt;[^ ]*) (?&lt;title&gt;[^ ]*) (?&lt;name1&gt;[^ ]*) (?&lt;title1&gt;[^ ]*) (?&lt;name2&gt;[^ ]*) (?&lt;title2&gt;[^ ]*) (?&lt;name3&gt;[^ ]*) (?&lt;title3&gt;[^ ]*) (?&lt;name4&gt;[^ ]*) (?&lt;title4&gt;[^ ]*) (?&lt;name5&gt;[^ ]*) (?&lt;title5&gt;[^ ]*) (?&lt;name6&gt;[^ ]*) (?&lt;title6&gt;[^ ]*) (?&lt;name7&gt;[^ ]*) (?&lt;title7&gt;[^ ]*) (?&lt;name8&gt;[^ ]*) (?&lt;title8&gt;[^ ]*) (?&lt;name9&gt;[^ ]*) (?&lt;title9&gt;[^ ]*) (?&lt;name10&gt;[^ ]*) (?&lt;title10&gt;[^ ]*) (?&lt;name11&gt;[^ ]*) (?&lt;title11&gt;[^ ]*) (?&lt;name12&gt;[^ ]*) (?&lt;title12&gt;[^ ]*) (?&lt;name13&gt;[^ ]*) (?&lt;title13&gt;[^ ]*) (?&lt;name14&gt;[^ ]*) (?&lt;title14&gt;[^ ]*) (?&lt;name15&gt;[^ ]*) (?&lt;title15&gt;[^ ]*) (?&lt;name16&gt;[^ ]*) (?&lt;title16&gt;[^ ]*) (?&lt;name17&gt;[^ ]*) (?&lt;title17&gt;[^ ]*) (?&lt;name18&gt;[^ ]*) (?&lt;title18&gt;[^ ]*) (?&lt;name19&gt;[^ ]*) (?&lt;title19&gt;[^ ]*) (?&lt;name20&gt;[^ ]*) (?&lt;title20&gt;[^ ]*) (?&lt;name21&gt;[^ ]*) (?&lt;title21&gt;[^ ]*) (?&lt;name22&gt;[^ ]*) (?&lt;title22&gt;[^ ]*) (?&lt;name23&gt;[^ ]*) (?&lt;title23&gt;[^ ]*) (?&lt;name24&gt;[^ ]*) (?&lt;title24&gt;[^ ]*) (?&lt;id&gt;\d*)$&#xd;
+&#xd;
+ */</stringProp>
+                <stringProp name="Argument.metadata">=</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+          <stringProp name="HTTPSampler.domain">10.250.16.118</stringProp>
+          <stringProp name="HTTPSampler.port">20006</stringProp>
+          <stringProp name="HTTPSampler.protocol">http</stringProp>
+          <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+          <stringProp name="HTTPSampler.path"></stringProp>
+          <stringProp name="HTTPSampler.method">POST</stringProp>
+          <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+          <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+          <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+          <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+          <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+          <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+          <stringProp name="HTTPSampler.response_timeout"></stringProp>
+        </HTTPSamplerProxy>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="察看结果树" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+          <boolProp name="ResultCollector.success_only_logging">true</boolProp>
+        </ResultCollector>
+        <hashTree/>
+        <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="汇总报告" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
